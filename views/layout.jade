@@ -1,7 +1,19 @@
 doctype html
+
 html
+  
   head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+  
+    include partials/head
+  
   body
-    block content
+
+    include partials/nav
+    
+    .container
+      
+      include partials/flash
+      
+      block content
+      
+      include partials/scripts
