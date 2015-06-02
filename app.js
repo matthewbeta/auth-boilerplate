@@ -16,6 +16,7 @@ var homeController = require('./controllers/index.js');
 var authController = require('./controllers/auth.js');
 var joinController = require('./controllers/join.js');
 var resetController = require('./controllers/reset.js');
+var loggedinController = require('./controllers/loggedin.js');
 
 mongoose.connect(secrets.db);
 
@@ -59,6 +60,8 @@ app.post('/forgot', resetController.postForgot);
 app.get('/reset/:token', resetController.getReset);
 
 app.post('/reset/:token', resetController.postReset);
+
+app.get('/loggedin', authController.isLoggedIn, loggedinController.get);
 
 app.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));

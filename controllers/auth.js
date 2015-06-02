@@ -56,7 +56,7 @@ exports.login = function(req, res, next) {
       if (err) {
         return next(err);
       }
-      return res.redirect('/');
+      return res.redirect(req.session.returnTo || '/');
     });
   })(req, res, next);
 }
@@ -65,4 +65,14 @@ exports.logout = function(req, res) {
   req.logout();
   req.flash('message', 'You have been logged out');
   res.redirect('/');
+}
+
+exports.isLoggedIn = function(req, res, next) {
+  if (req.user) {
+    next();
+  } else {
+    req.session.returnTo = req.path;
+    req.flash('info', 'You need to login first')
+    res.redirect('/login');
+  }
 }
